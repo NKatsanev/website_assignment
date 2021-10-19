@@ -1,106 +1,117 @@
 baseURL: https://nkatsasweb.netlify.app/
 languageCode: en-us
 title: Portfolio website for Kostis Christodoulou
-theme: port-hugo
+theme: forty
 googleAnalytics: ''
 disqusShortname: ''
 params:
- ########################## hero area ##########################
-hero:
-  title: "I'm Burton Guster"
-
-  # animated text loop
-  occupations:
-    - 'Web Developer'
-    - 'Pharmaceutical Salesman'
-    - 'Private Detective'
-
-  # hero background image
-  bg_image: 'images/background.jpg'
-  # optional mobile breakpoint background
-  mobile_bg_image: 'images/gus_small.jpg'
-
-########################### About ##################################
-about:
-  enable: true
-  image: 'images/profile.jpg'
-  title: 'THIS IS ME'
-  content: Hi, thank you for taking a look around my site. If you have any questions feel free to reach out on [LinkedIn, Github, or by email](#contact)!
-  button:
-    enable: true
-    label: 'DOWNLOAD MY RESUME'
-    link: #
-    icon: 'fa-download'
-
-###########################3 Experience ##############################
-experience:
-  enable: true
-  title: 'EXPERIENCE'
-  experience_list:
-    - name: Web Developer
-      company: Freelance
-      duration: '2020-Current'
-      content: I make websites.
-
-    - name: Private Detective
-      company: Psych
-      duration: '2019-2020'
-      content: Okay. This is hard to explain but I’m going to give it a shot. You and I are opening our own private detective agency.
-
-    - name: Pharmaceutical Salesman
-      company: South Coast Pharmaceuticals
-      duration: '2012-2018'
-      content: We are not bounty hunters, Shawn. I am a pharmaceutical salesman. And Lassiter made it very clear! He said in no uncertain terms. These are certain terms, Shawn! Certain terms!
-
-############################### Skill #################################
-skill:
-  enable: true
-  title: 'SOME SKILLS'
-  showpercent: false
-  skill_list:
-    - name: 'React'
-      percentage: '85%'
-
-    - name: 'Detecting'
-      percentage: '93%'
-
-    - name: 'Selling'
-      percentage: '25%'
-
-    - name: 'Yelling'
-      percentage: '100%'
-
-######################### funfacts #############################3
-funfacts:
-  enable: true
-  funfacts_list:
-    - name: 'CUPS PER DAY'
-      image: 'images/icons/coffee.png'
-      count: '2'
-
-    - name: 'SITES BUILT'
-      image: 'images/icons/web-development.png'
-      count: '25'
-
-    - name: 'USELESS ROW OF ICONS'
-      image: 'images/icons/happy.png'
-      count: '1'
-
-############################# portfolio ################################
-portfolio:
-  enable: true
-  title: 'MY WORK'
-  portfolio_list:
-    - name: Hugo
-      image: 'images/portfolio/hugo.png'
-      url: https://gohugo.io
-      description: Commodo non mollit commodo esse. Quis ad Lorem eiusmod ad velit Lorem sint elit. Anim magna duis et duis pariatur eiusmod laboris esse. Sit duis labore sit esse enim laborum nisi sunt magna sint labore tempor. Sit sit sint eu laboris officia et sunt consequat sit excepteur nostrud eu. Fugiat aliqua id et pariatur quis commodo aute aliqua et magna officia eu cillum mollit. Sint culpa excepteur culpa culpa sint est eu dolore culpa duis adipisicing proident.
-
-    - name: Hugo Themes
-      image: 'images/portfolio/hugothemes.png'
-      url: https://gohugo.io
-      description: Commodo non mollit commodo esse. Quis ad Lorem eiusmod ad velit Lorem sint elit. Anim magna duis et duis pariatur eiusmod laboris esse. Sit duis labore sit esse enim laborum nisi sunt magna sint labore tempor. Sit sit sint eu laboris officia et sunt consequat sit excepteur nostrud eu. Fugiat aliqua id et pariatur quis commodo aute aliqua et magna officia eu cillum mollit. Sint culpa excepteur culpa culpa sint est eu dolore culpa duis adipisicing proident.
-
-    - name: Just A Design
-      image: 'images/portfolio/design.png'
-      description: Commodo non mollit commodo esse. Quis ad Lorem eiusmod ad velit Lorem sint elit. Anim magna duis et duis pariatur eiusmod laboris esse. Sit duis labore sit esse enim laborum nisi sunt magna sint labore tempor. Sit sit sint eu laboris officia et sunt consequat sit excepteur nostrud eu. Fugiat aliqua id et pariatur quis commodo aute aliqua et magna officia eu cillum mollit. Sint culpa excepteur culpa culpa sint est eu dolore culpa duis adipisicing proident.
+  banner:
+    buttonText: Get Started
+    subtitle: |-
+      A RESPONSIVE SITE TEMPLATE DESIGNED BY HTML5 UP
+      AND RELEASED UNDER THE CREATIVE COMMONS.
+    title: Hello, my name is Nikos. Welcome to my website.
+  contact: 
+    address:
+      - city: Athen
+        country: Greece
+        street: Patriarchou Ioakim
+        title: 40
+    buttonClear: Clear
+    buttonSend: Send message
+    email:
+      - email: nikoskatsas@notmyemail.com
+        title: Email
+    enable: yes
+    phone:
+      - phone: (+30) 210-3213036
+        title: Phone
+  custom_css: []
+  custom_js: []
+  description: Your description
+  error404:
+    heading: Page couldn't be found
+    text: Please visit [this page](/)
+  favicon: favicon.ico
+  footer:
+    copyright: Nikos Katsanevakis for Data Analytics
+    enable: yes
+    quicklinks:
+      - alt: HTML5 UP
+        text: 'Design: '
+        url: https://www.html5up.net
+    social:
+      - icon: fa-twitter
+        label: Twitter
+        url: https://twitter.com/olympiacosfc/
+      - icon: fa-facebook
+        label: Facebook
+        url: https://www.facebook.com/nick.katsas
+      - icon: fa-instagram
+        label: Instagram
+        url: https://www.instagram.com/nick_katsas/
+      - icon: fa-github
+        label: GitHub
+        url: https://github.com/NKatsanev
+      - icon: fa-linkedin
+        label: LinkedIn
+        url: https://www.linkedin.com/in/nickkatsanevakis/
+  image: ''
+  name: Your name
+  navigation:
+    button1:
+      - name: Get Started
+        url: blogs
+    button2:
+      - name: Log In
+        url: '#'
+    links:
+      - name: Home
+        url: '#'
+      - name: Blogs
+        url: blogs
+      - name: Generic Blog
+        url: blogs/ipsum
+      - name: Elements
+        url: elements.html
+    menu: Menu
+    subtitle: By HTML5 Up
+    title: Forty
+  tiles:
+    enable: yes
+    showcase:
+      - image: pic01.jpg
+        subtitle: Ipsum Dolor Sit Amet
+        title: Aliquam
+        url: blogs/aliquam
+      - image: pic02.jpg
+        subtitle: Feugiat Amet Tempus
+        title: Tempus
+        url: blogs/tempus
+      - image: pic03.jpg
+        subtitle: Lorem Etiam Nullam
+        title: Magna
+        url: blogs/magna
+      - image: pic04.jpg
+        subtitle: Nisl Sed Aliquam
+        title: Ipsum
+        url: blogs/ipsum
+      - image: pic05.jpg
+        subtitle: Ipsum Dolor Sit Amet
+        title: Consequat
+        url: blogs/ipsum
+      - image: pic06.jpg
+        subtitle: Feugiat Amet Tempus
+        title: Etiam
+        url: blogs/ipsum
+  two:
+    buttonText: Get Started
+    enable: yes
+    subtitle: "Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero.
+      \r\n    Mauris aliquet magna magna sed nunc rhoncus pharetra. \r\n    Pellentesque
+      condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia
+      pellentesque lorem ipsum dolor. \r\n    Nullam et orci eu lorem consequat tincidunt.
+      Vivamus et sagittis libero.\r\n    Mauris aliquet magna magna sed nunc rhoncus
+      amet pharetra et feugiat tempus."
+    title: Massa libero
+    url: blogs
