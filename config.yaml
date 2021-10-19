@@ -15,7 +15,7 @@ params:
       - city: Athens
         country: Greece
         street: Patriarchou Ioakim
-        title: 40
+        title: Address
     buttonClear: Clear
     buttonSend: Send message
     email:
