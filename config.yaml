@@ -8,12 +8,11 @@ params:
   banner:
     buttonText: Get Started
     subtitle: |-
-      A RESPONSIVE SITE TEMPLATE DESIGNED BY HTML5 UP
-      AND RELEASED UNDER THE CREATIVE COMMONS.
+      In this page you may find glimpes of my team's work for the Data Analytics course and information about my home country, Greece.
     title: Hello, my name is Nikos. Welcome to my website.
   contact: 
     address:
-      - city: Athen
+      - city: Athens
         country: Greece
         street: Patriarchou Ioakim
         title: 40
@@ -34,12 +33,12 @@ params:
     text: Please visit [this page](/)
   favicon: favicon.ico
   footer:
-    copyright: Nikos Katsanevakis for Data Analytics
+    copyright: Nikolaos Nektarios Katsanevakis
     enable: yes
-    quicklinks:
-      - alt: HTML5 UP
-        text: 'Design: '
-        url: https://www.html5up.net
+    #quicklinks:
+     # - alt: HTML5 UP
+      #  text: 'Design: '
+       # url: https://www.html5up.net
     social:
       - icon: fa-twitter
         label: Twitter
@@ -72,18 +71,18 @@ params:
         url: blogs
       - name: Generic Blog
         url: blogs/ipsum
-      - name: Elements
-        url: elements.html
+     # - name: Elements
+      #  url: elements.html
     menu: Menu
-    subtitle: By HTML5 Up
-    title: Forty
+   # subtitle: By HTML5 Up
+    #title: Forty
   tiles:
     enable: yes
     showcase:
-      - image: pic01.jpg
-        subtitle: Ipsum Dolor Sit Amet
-        title: Aliquam
-        url: blogs/aliquam
+      - image: parthenon.jpg
+        subtitle: 
+        title: Athens' Parthenon
+        url: blogs/Parthenon
       - image: pic02.jpg
         subtitle: Feugiat Amet Tempus
         title: Tempus
