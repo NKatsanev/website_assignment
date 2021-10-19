@@ -99,10 +99,10 @@ params:
        # subtitle: Ipsum Dolor Sit Amet
         #title: Consequat
         #url: blogs/ipsum
-      - image: pic06.jpg
-        subtitle: Feugiat Amet Tempus
-        title: Etiam
-        url: blogs/ipsum
+      - image: lbs_logo.jpg
+        subtitle: My university
+        title: London Business School
+        url: blogs/lbs
   two:
     buttonText: Get Started
     enable: yes
