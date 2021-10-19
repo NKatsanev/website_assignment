@@ -8,10 +8,9 @@ params:
   banner:
     buttonText: Get Started
     subtitle: |-
-      #A RESPONSIVE SITE TEMPLATE DESIGNED BY HTML5 UP
+      A RESPONSIVE SITE TEMPLATE DESIGNED BY HTML5 UP
       AND RELEASED UNDER THE CREATIVE COMMONS.
-    title: Hi, my name is Nikos
-  blog: {}
+    title: Hello, my name is Nikos. Welcome to my website.
   contact: 
     address:
       - city: Athen
@@ -21,11 +20,11 @@ params:
     buttonClear: Clear
     buttonSend: Send message
     email:
-      - email: example@domain.com
+      - email: nikoskatsas@notmyemail.com
         title: Email
     enable: yes
     phone:
-      - phone: (000) 000-0000 x1234
+      - phone: (+30) 210-3213036
         title: Phone
   custom_css: []
   custom_js: []
@@ -35,7 +34,7 @@ params:
     text: Please visit [this page](/)
   favicon: favicon.ico
   footer:
-    copyright: Company Name
+    copyright: Nikos Katsanevakis for Data Analytics
     enable: yes
     quicklinks:
       - alt: HTML5 UP
@@ -44,19 +43,19 @@ params:
     social:
       - icon: fa-twitter
         label: Twitter
-        url: https://www.twitter.com
+        url: https://twitter.com/olympiacosfc/
       - icon: fa-facebook
         label: Facebook
-        url: https://www.facebook.com
+        url: https://www.facebook.com/nick.katsas
       - icon: fa-instagram
         label: Instagram
-        url: https://www.instagram.com
+        url: https://www.instagram.com/nick_katsas/
       - icon: fa-github
         label: GitHub
-        url: https://www.github.com
+        url: https://github.com/NKatsanev
       - icon: fa-linkedin
         label: LinkedIn
-        url: https://www.linkedin.com
+        url: https://www.linkedin.com/in/nickkatsanevakis/
   image: ''
   name: Your name
   navigation:
