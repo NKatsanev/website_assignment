@@ -11,4 +11,4 @@ slug: me
 title: Nikos Katsanevakis
 ---
 
-You may find a pdf version of my CV [here](https://docs.google.com/document/d/1VDOkNhy5xQIQkecTELj18mvbJ6v2Xqm7yZmnGZzRTHg/edit)
+You may find a pdf version of my CV [here](https://docs.google.com/document/d/1VDOkNhy5xQIQkecTELj18mvbJ6v2Xqm7yZmnGZzRTHg/edit).

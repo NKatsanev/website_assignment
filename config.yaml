@@ -69,8 +69,8 @@ params:
         url: '#'
       - name: Blogs
         url: blogs
-      - name: Generic Blog
-        url: blogs/ipsum
+      - name: About Me
+        url: blogs/me
      # - name: Elements
       #  url: elements.html
     menu: Menu
