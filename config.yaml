@@ -90,7 +90,7 @@ params:
       - image: pic03.jpg
         subtitle:
         title: Risk-Return of DJIA stocks
-        url: blogs/risk_return
+        url: blogs/code
       #- image: pic04.jpg
        # subtitle: Nisl Sed Aliquam
         #title: Ipsum
