@@ -83,10 +83,10 @@ params:
         subtitle: 
         title: Athens' Parthenon
         url: blogs/Parthenon
-   #   - image: pic02.jpg
-    #    subtitle: Feugiat Amet Tempus
-     #   title: Tempus
-      #  url: blogs/tempus
+      - image: nikos.jpg
+        subtitle: 
+        title: About Me
+        url: blogs/me
       #- image: pic03.jpg
        # subtitle: Lorem Etiam Nullam
         #title: Magna
@@ -100,7 +100,7 @@ params:
         #title: Consequat
         #url: blogs/ipsum
       - image: lbs_logo.jpg
-        subtitle: My university
+        subtitle: My University
         title: London Business School
         url: blogs/lbs
   #two:
