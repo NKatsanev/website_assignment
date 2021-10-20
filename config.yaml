@@ -83,11 +83,11 @@ params:
         subtitle: 
         title: Athens' Parthenon
         url: blogs/Parthenon
-      - image: nikos.jpg
+      - image: nikos.png
         subtitle: 
         title: About Me
         url: blogs/me
-      - image: pic03.jpg
+      - image: R_logo.png
         subtitle: Team A14
         title: Sample task in R
         url: blogs/code
