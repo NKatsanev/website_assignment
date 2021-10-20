@@ -88,9 +88,9 @@ params:
         title: About Me
         url: blogs/me
       - image: pic03.jpg
-        subtitle: Lorem Etiam Nullam
-        title: Magna
-        url: blogs/magna
+        subtitle:
+        title: Risk-Return of DJIA stocks
+        url: blogs/risk_return
       #- image: pic04.jpg
        # subtitle: Nisl Sed Aliquam
         #title: Ipsum
