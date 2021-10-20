@@ -9,105 +9,210 @@ image: pic07.jpg # save picture in \static\img\blogs. Acceptable formats= jpg, j
 
 keywords: ""
 slug: code # slug is the shorthand URL address... no spaces plz
-title: Risk-Return of DJIA stocks
+title: Beer Servings Project
 ---
 
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
-<div id="returns-of-financial-stocks" class="section level1">
-<h1>Returns of financial stocks</h1>
-<p>Next, let’s choose the <a href="https://en.wikipedia.org/wiki/Dow_Jones_Industrial_Average">Dow Jones Industrial Average (DJIA)</a> stocks and their ticker symbols and download some data. Besides the thirty stocks that make up the DJIA, we will also add <code>SPY</code> which is an SP500 ETF (Exchange Traded Fund).</p>
-<p>We will use the <code>rvest</code> package to scrape the Wikipedia page for the constituents of DJIA</p>
-<pre class="r"><code>djia_url &lt;- &quot;https://en.wikipedia.org/wiki/Dow_Jones_Industrial_Average&quot;
+<div id="task-1-where-do-people-drink-the-most-beer-wine-and-spirits" class="section level1">
+<h1>Task 1: Where Do People Drink The Most Beer, Wine And Spirits?</h1>
+<p>Back in 2014, <a href="https://fivethirtyeight.com/features/dear-mona-followup-where-do-people-drink-the-most-beer-wine-and-spirits/">fivethiryeight.com</a> published an article on alcohol consumption in different countries. We want to use the data in this article to find out in which countries people drink the most by looking at the consumption of <strong>beer</strong>, <strong>wine</strong>, and <strong>spirits</strong>.</p>
+<pre class="r"><code>library(fivethirtyeight)
+data(drinks)
 
-
-#get tables that exist on URL
-tables &lt;- djia_url %&gt;% 
-  read_html() %&gt;% 
-  html_nodes(css=&quot;table&quot;)
-
-
-# parse HTML tables into a dataframe called djia. 
-# Use purr::map() to create a list of all tables in URL
-djia &lt;- map(tables, . %&gt;% 
-               html_table(fill=TRUE)%&gt;% 
-               clean_names())
-
-
-# constituents
-table1 &lt;- djia[[2]] %&gt;% # the second table on the page contains the ticker symbols
-  mutate(date_added = ymd(date_added),
-         
-         # if a stock is listed on NYSE, its symbol is, e.g., NYSE: MMM
-         # We will get prices from yahoo finance which requires just the ticker
-         
-         # if symbol contains &quot;NYSE*&quot;, the * being a wildcard
-         # then we jsut drop the first 6 characters in that string
-         ticker = ifelse(str_detect(symbol, &quot;NYSE*&quot;),
-                          str_sub(symbol,7,11),
-                          symbol)
-         )
-
-# we need a vector of strings with just the 30 tickers + SPY  + VIX
-tickers &lt;- table1 %&gt;% 
-  select(ticker) %&gt;% 
-  pull() %&gt;% # pull() gets them as a sting of characters
-  c(&quot;SPY&quot;, &quot;^VIX&quot;) # and lets us add SPY, the SP500 ETF, and the VIX index</code></pre>
-<pre class="r"><code># Notice the cache=TRUE argument in the chunk options. Because getting data is time consuming, # cache=TRUE means that once it downloads data, the chunk will not run again next time you knit your Rmd
-
-myStocks &lt;- tickers %&gt;% 
-  tq_get(get  = &quot;stock.prices&quot;,
-         from = &quot;2000-01-01&quot;) %&gt;%
-  group_by(symbol) 
-
-glimpse(myStocks) # examine the structure of the resulting data frame</code></pre>
-<pre><code>## Rows: 167,503
-## Columns: 8
-## Groups: symbol [32]
-## $ symbol   &lt;chr&gt; &quot;MMM&quot;, &quot;MMM&quot;, &quot;MMM&quot;, &quot;MMM&quot;, &quot;MMM&quot;, &quot;MMM&quot;, &quot;MMM&quot;, &quot;MMM&quot;, &quot;MMM&quot;~
-## $ date     &lt;date&gt; 2000-01-03, 2000-01-04, 2000-01-05, 2000-01-06, 2000-01-07, ~
-## $ open     &lt;dbl&gt; 48.0, 46.4, 45.6, 47.2, 50.6, 50.2, 50.4, 51.0, 50.7, 50.4, 4~
-## $ high     &lt;dbl&gt; 48.2, 47.4, 48.1, 51.2, 51.9, 51.8, 51.2, 51.8, 50.9, 50.5, 4~
-## $ low      &lt;dbl&gt; 47.0, 45.3, 45.6, 47.2, 50.0, 50.0, 50.2, 50.4, 50.2, 49.5, 4~
-## $ close    &lt;dbl&gt; 47.2, 45.3, 46.6, 50.4, 51.4, 51.1, 50.2, 50.4, 50.4, 49.7, 4~
-## $ volume   &lt;dbl&gt; 2173400, 2713800, 3699400, 5975800, 4101200, 3863800, 2357600~
-## $ adjusted &lt;dbl&gt; 27.2, 26.1, 26.9, 29.0, 29.6, 29.4, 28.9, 29.0, 29.0, 28.6, 2~</code></pre>
-<p>Financial performance analysis depend on returns; If I buy a stock today for 100 and I sell it tomorrow for 101.75, my one-day return, assuming no transaction costs, is 1.75%. So given the adjusted closing prices, our first step is to calculate daily and monthly returns.</p>
-<pre class="r"><code>#calculate daily returns
-myStocks_returns_daily &lt;- myStocks %&gt;%
-  tq_transmute(select     = adjusted, 
-               mutate_fun = periodReturn, 
-               period     = &quot;daily&quot;, 
-               type       = &quot;log&quot;,
-               col_rename = &quot;daily_returns&quot;,
-               cols = c(nested.col))  
-
-#calculate monthly  returns
-myStocks_returns_monthly &lt;- myStocks %&gt;%
-  tq_transmute(select     = adjusted, 
-               mutate_fun = periodReturn, 
-               period     = &quot;monthly&quot;, 
-               type       = &quot;arithmetic&quot;,
-               col_rename = &quot;monthly_returns&quot;,
-               cols = c(nested.col)) </code></pre>
-<pre class="r"><code>#visualise monthly returns since 2010, for each of the 30 DJIA stocks
-myStocks_returns_monthly %&gt;% 
-  filter(symbol != &quot;^VIX&quot;, symbol != &quot;SPY&quot;) %&gt;% 
-  filter(date &gt;= &quot;2010-01-01&quot;) %&gt;% 
-  ggplot(aes(x = monthly_returns)) +
-  geom_density(aes(colour = symbol), alpha = 1) +
-  geom_histogram(aes(fill = symbol), alpha = 0.4, binwidth = 0.005)+
-  facet_wrap(~symbol, nrow=7)+
-  theme_bw(8)+
-  theme(legend.position = &quot;none&quot;) +
-  scale_x_continuous(labels = scales::percent) +
-  labs(
-    title = &quot;Distribution of monthly returns for DJIA stocks&quot;,
-    subtitle = &quot;Jan 2010 - now&quot;,
-    x = &quot;Monthly returns (%)&quot;,
-    y = &quot;&quot; )+
+# or download directly
+alcohol_direct &lt;- read_csv(&quot;https://raw.githubusercontent.com/fivethirtyeight/data/master/alcohol-consumption/drinks.csv&quot;)</code></pre>
+<p>Let’s take a look at our data and find whether there are any missing values and what variables we have.</p>
+<pre class="r"><code>skim(alcohol_direct)</code></pre>
+<table>
+<caption>(#tab:glimpse_skim_data)Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">alcohol_direct</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">193</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">5</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">character</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">numeric</td>
+<td align="left">4</td>
+</tr>
+<tr class="even">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">empty</th>
+<th align="right">n_unique</th>
+<th align="right">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">country</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">28</td>
+<td align="right">0</td>
+<td align="right">193</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">beer_servings</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">106.16</td>
+<td align="right">101.14</td>
+<td align="right">0</td>
+<td align="right">20.0</td>
+<td align="right">76.0</td>
+<td align="right">188.0</td>
+<td align="right">376.0</td>
+<td align="left">▇▃▂▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">spirit_servings</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">80.99</td>
+<td align="right">88.28</td>
+<td align="right">0</td>
+<td align="right">4.0</td>
+<td align="right">56.0</td>
+<td align="right">128.0</td>
+<td align="right">438.0</td>
+<td align="left">▇▃▂▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">wine_servings</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">49.45</td>
+<td align="right">79.70</td>
+<td align="right">0</td>
+<td align="right">1.0</td>
+<td align="right">8.0</td>
+<td align="right">59.0</td>
+<td align="right">370.0</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">total_litres_of_pure_alcohol</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4.72</td>
+<td align="right">3.77</td>
+<td align="right">0</td>
+<td align="right">1.3</td>
+<td align="right">4.2</td>
+<td align="right">7.2</td>
+<td align="right">14.4</td>
+<td align="left">▇▃▅▃▁</td>
+</tr>
+</tbody>
+</table>
+<p>The dataset contains one character (qualitative) variable, namely <code>country</code>, and four numeric variables (<code>beer_servings</code>, <code>spirits_servints</code>, <code>wine_servings</code> and <code>total_litres_of_pure_alcohol</code>) for which we can also see some summary statistics showing that the data is right-skewed. There are no missing values as can be seen from the <code>n_missing</code> variable that is 0 for all five variables contained in the dataset.</p>
+<p>We use <code>ggplot</code> to graph the top 25 consuming countries for beer, wine and spirits respectively.</p>
+<pre class="r"><code>alcohol_direct %&gt;% 
+  slice_max(order_by = beer_servings,
+            n = 25) %&gt;%    #pick only the top 25 countries with the most beer_servings
+  ggplot(aes(x = beer_servings,
+             y = fct_reorder(country, beer_servings))) + #order the country with beer_servings
+  geom_col(fill = &quot;gold&quot;,
+           color = &quot;grey&quot;) +
+  labs(title=&quot;Top 25 beer consuming countries&quot;,
+       x = &quot;Number of Beer Servings&quot;,
+       y = &quot;Country&quot;) +
+  coord_cartesian(xlim = c(100,NA)) +
   NULL</code></pre>
-<p><img src="/blogs/code_files/figure-html/unnamed-chunk-1-1.png" width="648" style="display: block; margin: auto;" /></p>
-<p><img src="/blogs/code_files/figure-html/risk_return-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p><img src="/blogs/code_files/figure-html/beer_plot-1.png" width="648" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>alcohol_direct %&gt;% 
+  slice_max(order_by = wine_servings,
+            n = 25) %&gt;%
+  ggplot(aes(x = wine_servings,
+             y = fct_reorder(country, wine_servings))) +
+  geom_col(fill = &quot;deeppink4&quot;,    #choose the most wine-like color in the list of color table
+           color = &quot;grey&quot;) +
+  labs(title = &quot;Top 25 wine consuming countries&quot;,
+       x = &quot;Number of Wine Servings&quot;,
+       y = &quot;Country&quot;) +
+  coord_cartesian(xlim = c(100,NA)) +
+  NULL</code></pre>
+<p><img src="/blogs/code_files/figure-html/wine_plot-1.png" width="648" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>alcohol_direct %&gt;% 
+  slice_max(order_by = spirit_servings,
+            n = 25) %&gt;%
+  ggplot(aes(x = spirit_servings,
+             y = fct_reorder(country,
+                           spirit_servings))) +
+  geom_col(fill = &quot;cornsilk3&quot;, color = &quot;grey&quot;) +
+  labs(title = &quot;Top 25 spirits consuming countries&quot;,
+       x = &quot;Number of Spirit Servings&quot;,
+       y = &quot;Country&quot;) +
+  coord_cartesian(xlim = c(100,NA)) +
+  NULL</code></pre>
+<p><img src="/blogs/code_files/figure-html/spirit_plot-1.png" width="648" style="display: block; margin: auto;" /></p>
+<blockquote>
+<p>We can infer from the above graphs…</p>
+</blockquote>
+<p>On a high-level overview we observe different countries being in the top spots for each type of alcohol.</p>
+<ul>
+<li><p>Beginning with <strong>beer</strong> consumption, the top 5 spots are dominated by central and eastern European countries with a few “surprises”. Namibia apparently has a long history of beer production. According to CNN, the first Namibian brewery opened in 1900, with every ethnic group in Africa having its own methods to create the famous beverage. Nowadays local beer is a tourist attraction and a large source of revenues for both Namibia and Ghana, explaining their placement in the list. As for the rest of the countries comprising the top 5, it is known that beer is very inexpensive there, with Czech Republic offering beer at a lower price than water in some pubs and restaurants.</p></li>
+<li><p>Moving to <strong>wine</strong>, the top spot is with France (arguably) highly anticipated. Bordeaux, a rural city in France has got some of the world’s finest wineries, with its wine being beloved both locally and internationally. Similar reasoning applies to Portugal. Douro Port is the country’s most famous wine, with many casual drinkers switching to premium wines, according to wininteligence.com. What is definitely worthy of commentary is Andorra’s placement on the list, because of its small population ranking it amongst the six European countries with the least residents. Again, as Andorra is a famous tourist destination because of its ski resorts, the high wine consumption is mostly attributed to tourists.</p></li>
+<li><p>Finally, regarding <strong>spirits</strong> we have mixed signals about the top 5. Although we would most definitely expect eastern countries such as Russia, the motherland of Vodka to be high on the list, Grenada seems to be number one, with another Caribbean country, St. Lucia, following on fifth. According to jamaicaobserver.com, both countries seem to have problems with illegal consumption since 2014, when the WHO declared Grenada as the country with the highest alcohol per capita consumption in the Caribbean.</p></li>
+</ul>
 </div>
