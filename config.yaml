@@ -88,8 +88,8 @@ params:
         title: About Me
         url: blogs/me
       - image: pic03.jpg
-        subtitle:
-        title: Risk-Return of DJIA stocks
+        subtitle: Team A14
+        title: Sample task in R
         url: blogs/code
       #- image: pic04.jpg
        # subtitle: Nisl Sed Aliquam
