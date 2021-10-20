@@ -8,7 +8,7 @@ description: London Business School is the best business school in the UK. It of
 draft: false
 image: lbs.jpg
 keywords: ""
-slug: London Business School
+slug: lbs
 title: London Business School
 ---
 
