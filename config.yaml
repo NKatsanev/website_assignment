@@ -79,7 +79,7 @@ params:
   tiles:
     enable: yes
     showcase:
-      - image: parthenon.jpg
+      - image: greek_flag.jpg
         subtitle: 
         title: Athens' Parthenon
         url: blogs/Parthenon
